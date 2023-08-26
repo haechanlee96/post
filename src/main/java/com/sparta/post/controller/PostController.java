@@ -27,8 +27,8 @@ public class PostController {
 
     // 2. 게시글 전체 조회
     @GetMapping("/posts")
-    public List<ResponseDto> getPosts(@RequestBody RequestDto requestDto) {
-        return postService.getPosts(requestDto);
+    public List<ResponseDto> getPosts() {
+        return postService.getPosts();
     }
 
     // 3. 선택한 게시글 조회

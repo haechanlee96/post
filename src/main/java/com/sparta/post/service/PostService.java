@@ -2,9 +2,11 @@ package com.sparta.post.service;
 
 import com.sparta.post.dto.RequestDto;
 import com.sparta.post.dto.ResponseDto;
+import com.sparta.post.entity.Post;
 import com.sparta.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,14 +22,29 @@ public class PostService {
     // 제목,작성자명,비밀번호,작성 내용을 저장하고
     // 저장된 게시글을 client로 반환하기
     public ResponseDto createPost(RequestDto requestDto) {
-        return null;
+        Post post = new Post(requestDto);
+
+        // db에 저장
+        Post savePost = postRepository.save(post);
+
+        // 반환
+        ResponseDto responseDto = new ResponseDto(post);
+        return responseDto;
+
     }
 
     // 2. 게시글 전체 조회
     // 전체 조회 : 제목,작성자명, 작성 내용, 작성 날짜
     // 작성 날짜 기준, 내림차순 정렬
-    public List<ResponseDto> getPosts(RequestDto requestDto) {
-        return null;
+    public List<ResponseDto> getPosts() {
+        List<Post> posts = postRepository.findAllByOrderByModifiedAtDesc();
+        List<ResponseDto> result = new ArrayList<>();
+
+        for (Post post : posts) {
+            result.add(new ResponseDto(post));
+        }
+
+        return result;
     }
 
     // 3. 선택한 게시글 조회
