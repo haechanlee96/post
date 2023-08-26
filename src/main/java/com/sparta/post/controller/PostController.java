@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class PostController {
 
@@ -33,7 +33,7 @@ public class PostController {
 
     // 3. 선택한 게시글 조회
     @GetMapping("/post/{id}")
-    public ResponseDto getPost(Long id) {
+    public ResponseDto getPost(@PathVariable Long id) {
         return postService.getPost(id);
     }
 
